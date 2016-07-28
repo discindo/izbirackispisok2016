@@ -10,7 +10,7 @@ shinyUI(fluidPage(
   
   # Sidebar with a slider input for number of bins
   sidebarLayout(
-    sidebarPanel(width = 3,
+    sidebarPanel(width = 4,
                  radioButtons(inputId="choose_by",
                               label="Одбери според:",
                               choices=list("Регион", "Општина"),
@@ -26,12 +26,14 @@ shinyUI(fluidPage(
                                               selected="Скопски")),
                  wellPanel(style = "background-color: #ffffff;",
                            h4("About"),
-                           tags$div("")
+                           tags$div("Визуелизација на спорните гласачи од", tags$a(href="http://www.sec.mk/", "списокот објавен од страна на Државната изборна комисија во јули 2016."),
+                                    "Податоците се групирани по општини и по региони. Град Скопје е извдоен посебно од Скопскиот регион.
+                                    Оригиналните податоци се достапни", tags$a(href="https://drive.google.com/file/d/0B8ZpCwro9h-zcmtheXlEOGRsaHc/view", 'тука.'))
                  )
                  ),
     
     # Show a plot of the generated distribution
-    mainPanel(
+    mainPanel(width = 6,
       plotOutput("barPlot"),
       tags$br(),
       dataTableOutput("Table")
