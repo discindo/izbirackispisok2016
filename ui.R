@@ -6,7 +6,7 @@ MUN <- MUN[!is.null(MUN$MUN),]
 shinyUI(fluidPage(
   
   # Application title
-  titlePanel("Спорни гласачи во Македонија.\nИзвор: ДИК, јули 2016"),
+  titlePanel("Спорни гласачи во Македонија. Извор: ДИК, јули 2016"),
   
   # Sidebar with a slider input for number of bins
   sidebarLayout(
@@ -34,7 +34,7 @@ shinyUI(fluidPage(
     mainPanel(
       plotOutput("barPlot"),
       tags$br(),
-      wellPanel()
+      dataTableOutput("Table")
     )
     
 )

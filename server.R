@@ -47,4 +47,13 @@ shinyServer(function(input, output) {
     }
   })
   
+  # render a data summary
+  output$Table <- renderDataTable({
+    D <- getData()[,2:5]
+    D <- data.frame(D$YoB, D$AGE, D$REG, D$MUN)
+    colnames(D) <- c("Година на раѓање", "Возраст", "Регион", "Општина")
+    return(D)
+  },)
+  
+  
 })
