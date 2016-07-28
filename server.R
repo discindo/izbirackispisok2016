@@ -46,14 +46,14 @@ shinyServer(function(input, output) {
     D <- getScale()
     if (length(unique(D$REG)) > 1 && length(unique(D$MUN)) > 1) { 
       P <- ggplot(D, aes(y=AGE, x=REG, group=REG, fill=REG)) +
-        geom_boxplot() + 
+        geom_violin() + 
         scale_fill_brewer("Регион",
                           breaks=levels(D$REG),
                           labels=levels(D$REG),
                           palette = "Reds")
       } else {
       P <- ggplot(D, aes(y=AGE, x=MUN, group=MUN, fill=MUN)) +
-        geom_boxplot() +
+        geom_violin() +
         scale_fill_brewer("Општина", 
                         breaks=levels(D$MUN),
                         labels=levels(D$MUN),

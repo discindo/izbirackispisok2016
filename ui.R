@@ -19,7 +19,7 @@ shinyUI(fluidPage(
                    radioButtons(inputId="choose_by",
                                 label="Одбери според:",
                                 choices=list("Регион", "Општина"),
-                                selected="Општина"),
+                                selected="Регион"),
                    conditionalPanel(condition = "input.choose_by == 'Општина'",
                                     selectInput(inputId="Municipality", 
                                                 label="Одбери Општина",
