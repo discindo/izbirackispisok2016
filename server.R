@@ -3,20 +3,18 @@ library(dplyr)
 library(ggplot2)
 library(RColorBrewer)
 
-MUN <- read.csv("mun1.csv")
-MUN <- MUN[!is.null(MUN$MUN)]
-MUN$Age <- 2016 - MUN$YoB
-MUN$Region <- as.factor(sample(x = LETTERS, size=nrow(MUN), replace = TRUE))
+MUN <- read.csv("Voters.csv")
+MUN <- MUN[!is.null(MUN$MUN),]
 
 shinyServer(function(input, output) {
   
   # filter based on selected species
   
   getData <- reactive({
-    if (input$choose_by == "Municipality") {
+    if (input$choose_by == "Општина") {
       D <- MUN %>% dplyr::filter(MUN==input$Municipality)
     } else {
-      D <- MUN %>% dplyr::filter(Region==input$Region)
+      D <- MUN %>% dplyr::filter(REG==input$Region)
     }
     return(D)
   })
@@ -24,8 +22,8 @@ shinyServer(function(input, output) {
   makePlot <- reactive({
     D <- getData()
     # draw a barplot 
-    P <- ggplot(D, aes(x=Age)) +
-      geom_histogram(bins=50, fill="orange") +
+    P <- ggplot(D, aes(x=AGE)) +
+      geom_histogram(bins=30, fill="firebrick1", colour="white") +
       theme_bw() +
       xlab("Возраст") +
       ylab("Број на гласачи") 
@@ -37,13 +35,13 @@ shinyServer(function(input, output) {
     P <- makePlot()
     D <- getData()
     Mun <- unique(D$MUN)
-    Reg <- unique(D$Region)
+    Reg <- unique(D$REG)
     
     if (length(unique(D$MUN)) > 1) {
       P +# facet_grid(MUN ~ ., scales="free") + 
-        ggtitle(paste("Број на гласачи по општина во регион", Reg, sep= " "))
+        ggtitle(paste("Број на гласачи по општина во", Reg, "регион", sep= " "))
     } else {
-      P + ggtitle(paste("Број на гласачи во општина ", Mun, sep= " "))
+      P + ggtitle(paste("Број на гласачи во општина", Mun, sep= " "))
     }
   })
   
