@@ -26,7 +26,9 @@ shinyServer(function(input, output) {
       geom_histogram(bins=30, fill="firebrick1", colour="white") +
       theme_bw() +
       xlab("Возраст") +
-      ylab("Број на гласачи") 
+      ylab("Број на спорни гласачи") +
+      scale_x_continuous(limits=c(18,100), breaks=seq(18, 100, 4))
+      
     return(P)
   })
   
@@ -39,9 +41,9 @@ shinyServer(function(input, output) {
     
     if (length(unique(D$MUN)) > 1) {
       P +# facet_grid(MUN ~ ., scales="free") + 
-        ggtitle(paste("Број на гласачи по општина во", Reg, "регион", sep= " "))
+        ggtitle(paste("Број на спорни гласачи возраст во", Reg, "регион", sep= " "))
     } else {
-      P + ggtitle(paste("Број на гласачи во општина", Mun, sep= " "))
+      P + ggtitle(paste("Број на спорни гласачи по возраст во општина", Mun, sep= " "))
     }
   })
   
