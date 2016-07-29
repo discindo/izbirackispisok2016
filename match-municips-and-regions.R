@@ -12,8 +12,11 @@ nrow(B)
 head(A)
 head(B)
 
-unique(A$MUN) %>% sort
-unique(B$MUN) %>% sort()
+unA <- unique(A$MUN) %>% sort
+unB <- unique(B$MUN) %>% sort
+
+Match <- unA %in% unB
+unA[!Match]
 
 C <- inner_join(A, B, by="MUN") 
 C$AGE <- 2016-C$YoB
