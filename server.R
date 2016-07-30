@@ -112,7 +112,9 @@ shinyServer(function(input, output) {
     Match1 <- all$MUN %in% teens$MUN
     all2 <- all[Match1,] 
     teens$Percent <- 100/(all2$AGE/teens$AGE)
-    teens <- teens %>% arrange(desc(Percent))
+    teens$Total <- all2$AGE
+    teens <- teens %>% ungroup %>% 
+      arrange(desc(Percent))
     return(teens)
   }
   
@@ -120,9 +122,9 @@ shinyServer(function(input, output) {
     D <- MUN
     AgeRange <- input$AgeRange
     Tbl <- getPercentOfAge(DataFrame = D, AgeRange = AgeRange)
-    Tbl <- data.frame(Tbl$REG, Tbl$MUN, Tbl$Percent) 
+    Tbl <- data.frame(Tbl$REG, Tbl$MUN, Tbl$Percent, Tbl$Total) 
     Tbl[,3] <- round(Tbl[,3], 2)
-    colnames(Tbl) <- c("Регион", "Општина", "Процент")
+    colnames(Tbl) <- c("Регион", "Општина", "Процент во одбрана возраст", "Вкупно во општина")
     return(Tbl)
     
   }, options = list(lengthMenu = c(5, 10, 20), pageLength = 5))

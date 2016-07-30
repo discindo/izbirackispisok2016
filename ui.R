@@ -31,8 +31,8 @@ shinyUI(fluidPage(
                                                 selected="Скопски"))
                    ),
                  tags$br(),
-                 sliderInput(inputId="AgeRange",label = "Филтер за возраст",min = 18, max = 105,
-                             value = c(18:22),step = 1,round = TRUE,ticks = TRUE,animate = TRUE),
+                 sliderInput(inputId="AgeRange", label = "Филтер за возраст", min = 18, max = 105,
+                             value = c(18,22), step = 1, round = TRUE, ticks = TRUE, animate = TRUE),
                  tags$br(),
                  dataTableOutput("Table1"),
                  tags$br(),
@@ -42,11 +42,9 @@ shinyUI(fluidPage(
                            tags$br(),
                            tags$div("Податоците се групирани по општини и по региони. Град Скопје е извдоен посебно од Скопскиот регион. Недостасуваат 6 записи за кои
                                     има вредости NULL за општини во оригиналните податоци."),
-                           
+                           tags$br(),
                            tags$div("Оригиналните податоци се достапни", tags$a(href="https://drive.google.com/file/d/0B8ZpCwro9h-zcmtheXlEOGRsaHc/view", 'тука.'))
-                    )#,
-                 #tags$br(),
-                 #dataTableOutput("Table")
+                    )
                  ),
         
         # Show a plot of the generated distribution
