@@ -32,7 +32,7 @@ shinyUI(fluidPage(
                    ),
                  tags$br(),
                  sliderInput(inputId="AgeRange",label = "Филтер за возраст",min = 18, max = 105,
-                             value = c(18:22),step = 2,round = TRUE,ticks = TRUE,animate = TRUE),
+                             value = c(18:22),step = 1,round = TRUE,ticks = TRUE,animate = TRUE),
                  tags$br(),
                  dataTableOutput("Table1"),
                  tags$br(),
