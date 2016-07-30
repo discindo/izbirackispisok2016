@@ -58,4 +58,4 @@ getPercentOfAge <- function(DataFrame=C, AgeRange=c(18:22)) {
   return(teens[,-(3:4)])
 }
 
-getPercentOfAge(DataFrame = C, AgeRange = 18:22)
+getPercentOfAge(DataFrame = C, AgeRange = 18:103)

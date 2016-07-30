@@ -107,7 +107,7 @@ shinyServer(function(input, output) {
   # order the municipalities with suspect voters within an age range
   # helper function
   getPercentOfAge <- function(DataFrame=D, AgeRange=AgeRange) {
-    teens <- DataFrame %>% filter(AGE %in% AgeRange) %>% group_by(REG, MUN) %>% summarise_each(funs(length(.)), AGE)
+    teens <- DataFrame %>% filter(AGE %in% c(AgeRange[1]:AgeRange[2])) %>% group_by(REG, MUN) %>% summarise_each(funs(length(.)), AGE)
     all <- DataFrame %>% group_by(REG, MUN) %>% summarise_each(funs(length(.)), AGE)
     Match1 <- all$MUN %in% teens$MUN
     all2 <- all[Match1,] 
