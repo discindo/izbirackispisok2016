@@ -104,5 +104,27 @@ shinyServer(function(input, output) {
     return(D)
   }, options = list(lengthMenu = c(5, 30, 50), pageLength = 5))
   
+  # order the municipalities with suspect voters within an age range
+  # helper function
+  getPercentOfAge <- function(DataFrame=D, AgeRange=AgeRange) {
+    teens <- DataFrame %>% filter(AGE %in% AgeRange) %>% group_by(REG, MUN) %>% summarise_each(funs(length(.)), AGE)
+    all <- DataFrame %>% group_by(REG, MUN) %>% summarise_each(funs(length(.)), AGE)
+    Match1 <- all$MUN %in% teens$MUN
+    all2 <- all[Match1,] 
+    teens$Percent <- 100/(all2$AGE/teens$AGE)
+    teens <- teens %>% arrange(desc(Percent))
+    return(teens)
+  }
   
-})
+  output$Table1 <- renderDataTable({
+    D <- MUN
+    AgeRange <- input$AgeRange
+    Tbl <- getPercentOfAge(DataFrame = D, AgeRange = AgeRange)
+    Tbl <- data.frame(Tbl$REG, Tbl$MUN, Tbl$Percent) 
+    Tbl[,3] <- round(Tbl[,3], 2)
+    colnames(Tbl) <- c("Регион", "Општина", "Процент")
+    return(Tbl)
+    
+  }, options = list(lengthMenu = c(5, 10, 20), pageLength = 5))
+  
+})  

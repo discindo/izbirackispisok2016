@@ -30,6 +30,12 @@ shinyUI(fluidPage(
                                                 choices=levels(MUN$REG),
                                                 selected="Скопски"))
                    ),
+                 tags$br(),
+                 sliderInput(inputId="AgeRange",label = "Филтер за возраст",min = 18, max = 105,
+                             value = c(18:22),step = 2,round = TRUE,ticks = TRUE,animate = TRUE),
+                 tags$br(),
+                 dataTableOutput("Table1"),
+                 tags$br(),
                  wellPanel(style = "background-color: #ffffff;",
                            h4("За"),
                            tags$div("Визуелизација на спорните гласачи од", tags$a(href="http://www.sec.mk/", "списокот објавен од страна на Државната изборна комисија во јули 2016.")),
@@ -38,7 +44,9 @@ shinyUI(fluidPage(
                                     има вредости NULL за општини во оригиналните податоци."),
                            
                            tags$div("Оригиналните податоци се достапни", tags$a(href="https://drive.google.com/file/d/0B8ZpCwro9h-zcmtheXlEOGRsaHc/view", 'тука.'))
-                    )
+                    )#,
+                 #tags$br(),
+                 #dataTableOutput("Table")
                  ),
         
         # Show a plot of the generated distribution
