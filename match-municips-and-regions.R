@@ -34,8 +34,10 @@ all <- C %>%  group_by(MUN) %>% summarise_each(funs(length(.)))
 
 Match1 <- all$MUN %in% teens$MUN
 
-all$MUN[Match1] ## i kako sega da se izbrisat od all tie sto nemaat 18-22
+all2 <- all[Match1,] # subset the rows based on true/false in Match2
 
-##formula za procent
-##perc <- 100/(all/teens)
-
+##percent
+## doesn't matter which variable is used, as the length 
+#(number of voters in each municipality) is the same for all variables
+teens$Percent <- 100/(all2$AGE/teens$AGE)
+teens %>% arrange(desc(Percent))
