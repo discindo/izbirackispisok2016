@@ -31,7 +31,6 @@ write.csv(C, file="Voters.csv")
 teens <- C %>% filter(AGE %in% 18:22) %>% group_by(MUN) %>% summarise_each(funs(length(.)))
 all <- C %>%  group_by(MUN) %>% summarise_each(funs(length(.)))
 
-
 Match1 <- all$MUN %in% teens$MUN
 
 all2 <- all[Match1,] # subset the rows based on true/false in Match2
@@ -41,3 +40,18 @@ all2 <- all[Match1,] # subset the rows based on true/false in Match2
 #(number of voters in each municipality) is the same for all variables
 teens$Percent <- 100/(all2$AGE/teens$AGE)
 teens %>% arrange(desc(Percent))
+
+# wrapper function to do the above for arbitrary age range
+
+getPercentOfAge <- function(DataFrame=C, AgeRange=c(18:22)) {
+  library("dplyr")
+  teens <- DataFrame %>% filter(AGE %in% AgeRange) %>% group_by(MUN) %>% summarise_each(funs(length(.)))
+  all <- DataFrame %>% group_by(MUN) %>% summarise_each(funs(length(.)))
+  Match1 <- all$MUN %in% teens$MUN
+  all2 <- all[Match1,] 
+  teens$Percent <- 100/(all2$AGE/teens$AGE)
+  teens %>% arrange(desc(Percent))
+  return(teens)
+}
+
+getPercentOfAge(DataFrame = C, AgeRange = 30:35)
